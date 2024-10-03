@@ -1,6 +1,8 @@
 package com.logic.jobportal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -9,25 +11,27 @@ import java.util.Date;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int id;
+    private int userId;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
+    @NotEmpty
     private String password;
 
     @Column(name = "is_active")
     private boolean isActive;
 
     @Column(name = "registration_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registrationDate;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_type_id", referencedColumnName = "user_type_id")
-    private UsersType userType;
+    private UsersType userTypeId;
 
 
     public Users() {
@@ -42,12 +46,14 @@ public class Users {
 
 
     // getters and setters
-    public int getId() {
-        return id;
+
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -82,13 +88,15 @@ public class Users {
         this.registrationDate = registrationDate;
     }
 
-    public UsersType getUserType() {
-        return userType;
+    public UsersType getUserTypeId() {
+        return userTypeId;
     }
 
-    public void setUserType(UsersType userType) {
-        this.userType = userType;
+    public void setUserTypeId(UsersType userTypeId) {
+        this.userTypeId = userTypeId;
     }
+
+
 
     @Override
     public String toString() {
@@ -97,7 +105,7 @@ public class Users {
                 ", isActive=" + isActive +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", id=" + id +
+                ", userId=" + userId +
                 '}';
     }
 }
