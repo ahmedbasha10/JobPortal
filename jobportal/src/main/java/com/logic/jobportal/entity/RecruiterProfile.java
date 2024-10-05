@@ -117,6 +117,7 @@ public class RecruiterProfile {
     @Transient
     public String getPhotosImagePath(){
         if(null == profilePhoto) return null;
+        System.out.println("/photos/recruiter/" + userAccountId + "/" + profilePhoto);
         return "/photos/recruiter/" + userAccountId + "/" + profilePhoto;
     }
 
