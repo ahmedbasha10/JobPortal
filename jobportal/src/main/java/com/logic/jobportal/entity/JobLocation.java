@@ -18,7 +18,8 @@ public class JobLocation {
     public JobLocation() {
     }
 
-    public JobLocation(String city, String state, String country) {
+    public JobLocation(int id, String city, String state, String country) {
+        this.id = id;
         this.city = city;
         this.state = state;
         this.country = country;

@@ -17,7 +17,8 @@ public class JobCompany {
     public JobCompany() {
     }
 
-    public JobCompany(String logo, String name) {
+    public JobCompany(int id, String name, String logo) {
+        this.id = id;
         this.logo = logo;
         this.name = name;
     }

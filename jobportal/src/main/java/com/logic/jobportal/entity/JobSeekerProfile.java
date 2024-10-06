@@ -9,7 +9,7 @@ import java.util.List;
 public class JobSeekerProfile {
 
     @Id
-    private int userAccountId;
+    private Integer userAccountId;
 
     @OneToOne
     @JoinColumn(name = "user_account_id")
@@ -37,7 +37,7 @@ public class JobSeekerProfile {
         this.userId = userId;
     }
 
-    public JobSeekerProfile(int userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String workAuthorization, String employmentType, String resume, String profilePhoto, List<Skills> skills) {
+    public JobSeekerProfile(Integer userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String workAuthorization, String employmentType, String resume, String profilePhoto, List<Skills> skills) {
         this.userAccountId = userAccountId;
         this.userId = userId;
         this.firstName = firstName;
@@ -52,11 +52,11 @@ public class JobSeekerProfile {
         this.skills = skills;
     }
 
-    public int getUserAccountId() {
+    public Integer getUserAccountId() {
         return userAccountId;
     }
 
-    public void setUserAccountId(int userAccountId) {
+    public void setUserAccountId(Integer userAccountId) {
         this.userAccountId = userAccountId;
     }
 
@@ -146,6 +146,13 @@ public class JobSeekerProfile {
 
     public void setSkills(List<Skills> skills) {
         this.skills = skills;
+    }
+
+    @Transient
+    public String getPhotosImagePath(){
+        if(null == profilePhoto || userAccountId == null) return null;
+        System.out.println("/photos/candidate/" + userAccountId + "/" + profilePhoto);
+        return "/photos/candidates/" + userAccountId + "/" + profilePhoto;
     }
 
     @Override
