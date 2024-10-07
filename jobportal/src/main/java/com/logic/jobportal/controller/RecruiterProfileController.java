@@ -3,7 +3,6 @@ package com.logic.jobportal.controller;
 
 import com.logic.jobportal.entity.RecruiterProfile;
 import com.logic.jobportal.entity.Users;
-import com.logic.jobportal.repository.RecruiterProfileRepository;
 import com.logic.jobportal.services.RecruiterProfileService;
 import com.logic.jobportal.services.UsersService;
 import com.logic.jobportal.util.FileUploadUtil;
@@ -41,7 +40,7 @@ public class RecruiterProfileController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!(authentication instanceof AnonymousAuthenticationToken)){
             String username = authentication.getName();
-            Users users = usersService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("couldn't find user"));
+            Users users = usersService.getByEmail(username).orElseThrow(() -> new UsernameNotFoundException("couldn't find user"));
             Optional<RecruiterProfile> recruiterProfile = recruiterProfileService.findById(users.getUserId());
 
             recruiterProfile.ifPresent(profile -> model.addAttribute("profile", profile));
@@ -55,7 +54,7 @@ public class RecruiterProfileController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!(authentication instanceof AnonymousAuthenticationToken)){
             String username = authentication.getName();
-            Users users = usersService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("couldn't find user"));
+            Users users = usersService.getByEmail(username).orElseThrow(() -> new UsernameNotFoundException("couldn't find user"));
             recruiterProfile.setUserId(users);
             recruiterProfile.setUserAccountId(users.getUserId());
         }
