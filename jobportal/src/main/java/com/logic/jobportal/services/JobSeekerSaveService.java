@@ -28,4 +28,8 @@ public class JobSeekerSaveService {
         return jobSeekerSaveRepository.findByJob(job);
     }
 
+    public JobSeekerSave addNew(JobSeekerSave jobSeekerSave){
+        return jobSeekerSaveRepository.save(jobSeekerSave);
+    }
+
 }

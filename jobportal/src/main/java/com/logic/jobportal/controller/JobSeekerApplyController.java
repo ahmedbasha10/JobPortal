@@ -88,13 +88,14 @@ public class JobSeekerApplyController {
     }
 
     @PostMapping("job-details/apply/{id}")
-    public String apply(@PathVariable("id") int id, JobSeekerApply jobSeekerApply) {
+    public String apply(@PathVariable("id") int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUsername = authentication.getName();
             Users user = usersService.findByEmail(currentUsername);
             Optional<JobSeekerProfile> seekerProfile = jobSeekerProfileService.getOne(user.getUserId());
             JobPostActivity jobPostActivity = jobPostActivityService.getOne(id);
+            JobSeekerApply jobSeekerApply;
             if (seekerProfile.isPresent() && jobPostActivity != null) {
                 jobSeekerApply = new JobSeekerApply();
                 jobSeekerApply.setUserId(seekerProfile.get());
@@ -108,4 +109,6 @@ public class JobSeekerApplyController {
 
         return "redirect:/dashboard/";
     }
+
+
 }
